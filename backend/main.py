@@ -11,12 +11,7 @@ app = FastAPI(title="Shakespeare GA API", version="1.0.0")
 # Add CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://shakespeare-genetic-algorithm-andrus-projects-c70032aa.vercel.app",
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "https://*.vercel.app",
-    ],
+    allow_origin_regex=".*",
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
