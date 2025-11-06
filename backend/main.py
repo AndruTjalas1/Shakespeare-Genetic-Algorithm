@@ -8,11 +8,16 @@ from genetic_algorithm import GeneticAlgorithm
 # Initialize FastAPI app
 app = FastAPI(title="Shakespeare GA API", version="1.0.0")
 
-# Add CORS middleware to allow frontend requests from anywhere
+# Add CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins
-    allow_credentials=False,  # Must be False when allow_origins=["*"]
+    allow_origins=[
+        "https://shakespeare-genetic-algorithm-andrus-projects-c70032aa.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://*.vercel.app",
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
