@@ -1,10 +1,26 @@
 import os
 import sys
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List, Optional
-from genetic_algorithm import GeneticAlgorithm
+
+print("Starting imports...", file=sys.stderr, flush=True)
+
+try:
+    from fastapi import FastAPI
+    from fastapi.middleware.cors import CORSMiddleware
+    from pydantic import BaseModel
+    from typing import List, Optional
+    print("FastAPI imports OK", file=sys.stderr, flush=True)
+except Exception as e:
+    print(f"FastAPI import error: {e}", file=sys.stderr, flush=True)
+    raise
+
+try:
+    from genetic_algorithm import GeneticAlgorithm
+    print("GeneticAlgorithm import OK", file=sys.stderr, flush=True)
+except Exception as e:
+    print(f"GeneticAlgorithm import error: {e}", file=sys.stderr, flush=True)
+    raise
+
+print("All imports successful", file=sys.stderr, flush=True)
 
 # Initialize FastAPI app
 app = FastAPI(title="Shakespeare GA API", version="1.0.0")
@@ -207,11 +223,15 @@ def reset():
     return {"status": "reset"}
 
 
-# Health check endpoint
+# Health check endpoint - MINIMAL TEST
 @app.get("/health")
 def health_check():
     """Health check endpoint."""
-    return {"status": "healthy"}
+    try:
+        return {"status": "healthy", "ok": True}
+    except Exception as e:
+        print(f"Health check error: {e}", file=sys.stderr, flush=True)
+        return {"status": "error", "error": str(e)}
 
 
 if __name__ == "__main__":
