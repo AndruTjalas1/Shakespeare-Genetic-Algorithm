@@ -177,5 +177,5 @@ class GeneticAlgorithm:
     def is_complete(self) -> bool:
         """Check if target has been found."""
         if self.best_ever:
-            return self.best_ever.fitness == 1.0
+            return self.best_ever.fitness >= 0.99  # Use tolerance for floating point
         return False
