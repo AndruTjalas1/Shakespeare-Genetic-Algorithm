@@ -116,12 +116,22 @@ function App() {
         history,
       }))
 
+      // IMPORTANT: Check and stop immediately if complete
       if (isComplete) {
-        stopEvolution()
+        console.log('Evolution complete! Stopping...')
+        if (evolutionIntervalRef.current) {
+          clearInterval(evolutionIntervalRef.current)
+          evolutionIntervalRef.current = null
+        }
+        setState((prev) => ({ ...prev, isRunning: false }))
       }
     } catch (error: any) {
       console.error('Evolution error:', error)
-      stopEvolution()
+      if (evolutionIntervalRef.current) {
+        clearInterval(evolutionIntervalRef.current)
+        evolutionIntervalRef.current = null
+      }
+      setState((prev) => ({ ...prev, isRunning: false }))
     }
   }
 
