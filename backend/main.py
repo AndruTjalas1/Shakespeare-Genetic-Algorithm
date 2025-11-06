@@ -1,4 +1,5 @@
 import os
+import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -8,11 +9,11 @@ from genetic_algorithm import GeneticAlgorithm
 # Initialize FastAPI app
 app = FastAPI(title="Shakespeare GA API", version="1.0.0")
 
-# Add CORS middleware to allow frontend requests
+# CORS - Allow everything
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=".*",
-    allow_credentials=False,
+    allow_origins=["*"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
